@@ -415,10 +415,14 @@ static const int MAX_TEXT_LENGTH = 255;
     // check cache for view data
     NSMutableDictionary *columnMap = self.cachedRows[@(row)];
     if (columnMap != nil) {
-        ViewData *viewData = columnMap[tableColumn.identifier];
-        if (viewData != nil) {
-            return [self createCell:viewData.text withType:viewData.viewType];
+        NSView *view = columnMap[tableColumn.identifier];
+        if (view != nil) {
+            return view;
         }
+//        ViewData *viewData = columnMap[tableColumn.identifier];
+//        if (viewData != nil) {
+//            return [self createCell:viewData.text withType:viewData.viewType];
+//        }
     }
 
     NSString *viewText = nil;
@@ -522,16 +526,18 @@ static const int MAX_TEXT_LENGTH = 255;
         columnMap = [NSMutableDictionary new];
         self.cachedRows[@(row)] = columnMap;
     }
-    ViewData *viewData = [ViewData new];
-    viewData.text = viewText;
-    viewData.viewType = viewType;
-    columnMap[tableColumn.identifier] = viewData;
+//    ViewData *viewData = [ViewData new];
+//    viewData.text = viewText;
+//    viewData.viewType = viewType;
+//    columnMap[tableColumn.identifier] = viewData;
 
     // create cell from text and type
-    return [self createCell:viewText withType:viewType];
+    NSView *view = [self createCell:viewText withType:viewType];
+    columnMap[tableColumn.identifier] = view;
+    return view;
 }
 
-- (NSTableCellView *)createCell:(NSString *)text withType:(EViewType)type {
+- (NSView *)createCell:(NSString *)text withType:(EViewType)type {
     // using different identifiers for view types to minimize changes to a cells layout for reuse
     NSString *identifier;
     if (type == ViewTypeLink) {
@@ -543,12 +549,13 @@ static const int MAX_TEXT_LENGTH = 255;
     else {
         identifier = @"TEXT";
     }
-    MFLTextTableCellView *textCell = [self.entityContentTable makeViewWithIdentifier:identifier owner:self];
+    MFLTextTableCellView *textCell = nil;
+//    MFLTextTableCellView *textCell = [self.entityContentTable makeViewWithIdentifier:identifier owner:self];
     if (textCell == nil) {
-        NSLog(@"creating: %d", (int)type);
+//        NSLog(@"creating: %d", (int)type);
         textCell = [MFLTextTableCellView new];
         textCell.identifier = identifier;
-        textCell.wantsLayer = YES;
+        //textCell.wantsLayer = YES;
     }
 
     textCell.viewType = type;
