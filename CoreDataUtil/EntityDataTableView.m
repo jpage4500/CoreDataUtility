@@ -106,7 +106,7 @@
             NSTableColumn *col;
             MFLMainWindowController* dataSource = (MFLMainWindowController*)[self dataSource];
             while (nil != (col = [enumerator nextObject]) ) {
-                id columnValue = [dataSource getValueObjFromDataRows:self: currentIndex: col];
+                id columnValue = [dataSource getValueObjFromDataRows:currentIndex columnName:col.identifier];
                 NSString *columnString = @"";
                 if (nil != columnValue) {
                     if ([columnValue isKindOfClass:[NSManagedObject class]]) {

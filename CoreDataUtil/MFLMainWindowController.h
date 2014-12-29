@@ -11,9 +11,10 @@
 #import "CoreDataHistoryObject.h"
 
 #import "EntityTableView.h"
+#import "MBTableGrid.h"
 
 @class EntityTableView;
-@class EntityDataTableView;
+@class MBTableGrid;
 
 typedef NS_ENUM(NSUInteger, EViewType) {
  ViewTypeString = 0,
@@ -23,10 +24,11 @@ typedef NS_ENUM(NSUInteger, EViewType) {
  ViewTypeTransformable,
 };
 
-@interface MFLMainWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate, MFLCoreDataIntrospectionDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSSplitViewDelegate, EntityTableViewDataSource>
+@interface MFLMainWindowController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate, MFLCoreDataIntrospectionDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSSplitViewDelegate, MBTableGridDataSource, MBTableGridDelegate>
+
+@property IBOutlet MBTableGrid *entityContentTable;
 
 @property (weak) IBOutlet EntityTableView *dataSourceList;
-@property (weak) IBOutlet EntityDataTableView *entityContentTable;
 @property (weak) IBOutlet NSSegmentedControl* userSelecteddateFormat;
 @property (unsafe_unretained) IBOutlet NSWindow *predicateSheet;
 @property (weak) IBOutlet NSMatrix *preferenceSheetMatrix;
@@ -43,7 +45,7 @@ typedef NS_ENUM(NSUInteger, EViewType) {
 - (NSURL*) persistenceFileUrl;
 - (NSInteger) persistenceFileFormat;
 
-- (id)getValueObjFromDataRows:(NSTableView *)tableView :(NSInteger)row :(NSTableColumn *)tableColumn;
+- (id)getValueObjFromDataRows:(NSInteger)row columnName:(NSString *)columnName;
 
 /**
  Displays the info sheet for the currently selected entity

@@ -42,7 +42,14 @@
 		83AE7D3019FF1AB400DD152B /* SimulatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AE7D2F19FF1AB400DD152B /* SimulatorItem.m */; };
 		83AE7D3219FF1CE900DD152B /* simulatorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AE7D3119FF1CE900DD152B /* simulatorIcon.png */; };
 		83B158FD158F6AE2002B46C2 /* MFLCoreDataIntrospection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B158FC158F6AE2002B46C2 /* MFLCoreDataIntrospection.m */; };
+		9780E1BB6B35F5AB4331FDC0 /* MBTableGridHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9780ECCAFFAF379D913986A7 /* MBTableGridHeaderView.m */; };
+		9780E1E97FFD8CE6DCDC1C67 /* MBTableGridController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9780E8858CA28E1CA5581E6D /* MBTableGridController.m */; };
+		9780E6016C282F734A9A3BB2 /* MBTableGridHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9780EA6E3CA6668B6F0B656C /* MBTableGridHeaderCell.m */; };
+		9780EB41F7B0A5F7F26CC326 /* MBTableGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 9780ECF18B964A3415B2CD48 /* MBTableGrid.m */; };
+		9780EB84987ABE9352D139CF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9780EDB54D25CD3E5FAFF645 /* README.md */; };
+		9780EDC1D790F6F98FDCDEAD /* MBTableGridContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9780E854A6D2F8C1F92D8A6C /* MBTableGridContentView.m */; };
 		9780EDFFBC753AD96BBF64A1 /* MFLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9780E6C8A039EE9C6DDC7B83 /* MFLUtils.m */; };
+		9780EE2D16F145612FB55022 /* MBTableGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9780EC80D721676A4A9E09B5 /* MBTableGridCell.m */; };
 		C1CEFE561463779D00466EB3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1CEFE551463779D00466EB3 /* Cocoa.framework */; };
 		C1CEFE601463779D00466EB3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1CEFE5E1463779D00466EB3 /* InfoPlist.strings */; };
 		C1CEFE621463779D00466EB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CEFE611463779D00466EB3 /* main.m */; };
@@ -149,8 +156,21 @@
 		83AE7D3119FF1CE900DD152B /* simulatorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = simulatorIcon.png; sourceTree = "<group>"; };
 		83B158FB158F6AE2002B46C2 /* MFLCoreDataIntrospection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLCoreDataIntrospection.h; sourceTree = "<group>"; };
 		83B158FC158F6AE2002B46C2 /* MFLCoreDataIntrospection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFLCoreDataIntrospection.m; sourceTree = "<group>"; };
+		9780E3077AF6DBC1ED66AFB1 /* MBTableGridHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTableGridHeaderView.h; sourceTree = "<group>"; };
 		9780E6C8A039EE9C6DDC7B83 /* MFLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFLUtils.m; sourceTree = "<group>"; };
+		9780E6F37B4693E1DE843F68 /* MBTableGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTableGridCell.h; sourceTree = "<group>"; };
+		9780E701089878208B1B963A /* MBTableGridController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTableGridController.h; sourceTree = "<group>"; };
+		9780E7F10E2CC7654EAA27AA /* MBTableGridHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTableGridHeaderCell.h; sourceTree = "<group>"; };
+		9780E854A6D2F8C1F92D8A6C /* MBTableGridContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTableGridContentView.m; sourceTree = "<group>"; };
+		9780E8858CA28E1CA5581E6D /* MBTableGridController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTableGridController.m; sourceTree = "<group>"; };
 		9780E887DE002F72EABD10EF /* MFLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLUtils.h; sourceTree = "<group>"; };
+		9780E8F6A2946B18DE192931 /* MBTableGridContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTableGridContentView.h; sourceTree = "<group>"; };
+		9780EA6E3CA6668B6F0B656C /* MBTableGridHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTableGridHeaderCell.m; sourceTree = "<group>"; };
+		9780EC80D721676A4A9E09B5 /* MBTableGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTableGridCell.m; sourceTree = "<group>"; };
+		9780ECCAFFAF379D913986A7 /* MBTableGridHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTableGridHeaderView.m; sourceTree = "<group>"; };
+		9780ECF18B964A3415B2CD48 /* MBTableGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBTableGrid.m; sourceTree = "<group>"; };
+		9780ED9BA1DC9B77D07CDD8D /* MBTableGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTableGrid.h; sourceTree = "<group>"; };
+		9780EDB54D25CD3E5FAFF645 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = README.md; sourceTree = "<group>"; };
 		C1CEFE511463779C00466EB3 /* CoreDataPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1CEFE551463779D00466EB3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C1CEFE581463779D00466EB3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -320,6 +340,34 @@
 			name = TableViews;
 			sourceTree = "<group>";
 		};
+		9780E31D3B4CD3A075723682 /* mbtablegrid */ = {
+			isa = PBXGroup;
+			children = (
+				9780EDB54D25CD3E5FAFF645 /* README.md */,
+				9780ED9BA1DC9B77D07CDD8D /* MBTableGrid.h */,
+				9780ECF18B964A3415B2CD48 /* MBTableGrid.m */,
+				9780E6F37B4693E1DE843F68 /* MBTableGridCell.h */,
+				9780EC80D721676A4A9E09B5 /* MBTableGridCell.m */,
+				9780E701089878208B1B963A /* MBTableGridController.h */,
+				9780E8858CA28E1CA5581E6D /* MBTableGridController.m */,
+				9780E7F10E2CC7654EAA27AA /* MBTableGridHeaderCell.h */,
+				9780EA6E3CA6668B6F0B656C /* MBTableGridHeaderCell.m */,
+				9780E3077AF6DBC1ED66AFB1 /* MBTableGridHeaderView.h */,
+				9780ECCAFFAF379D913986A7 /* MBTableGridHeaderView.m */,
+				9780E8F6A2946B18DE192931 /* MBTableGridContentView.h */,
+				9780E854A6D2F8C1F92D8A6C /* MBTableGridContentView.m */,
+			);
+			path = mbtablegrid;
+			sourceTree = "<group>";
+		};
+		9780EDEFA8DCF24C148A7440 /* external */ = {
+			isa = PBXGroup;
+			children = (
+				9780E31D3B4CD3A075723682 /* mbtablegrid */,
+			);
+			path = external;
+			sourceTree = "<group>";
+		};
 		C1AAB8781491629B002C1973 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +440,7 @@
 				83B566591593A550004DE9FC /* TableViews */,
 				832C9698159BDB8600AC8FA8 /* Utils */,
 				83656E6A1937A637003D0E74 /* windows */,
+				9780EDEFA8DCF24C148A7440 /* external */,
 			);
 			path = CoreDataUtil;
 			sourceTree = "<group>";
@@ -577,6 +626,7 @@
 				838055C915A3A67200D050E7 /* ApplicationIcon-CDP.icns in Resources */,
 				838055CA15A3A67200D050E7 /* ApplicationIcon-MOM.icns in Resources */,
 				1D52574716EB66F200A91244 /* FetchRequestInfoController.xib in Resources */,
+				9780EB84987ABE9352D139CF /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,6 +722,12 @@
 				833FF6FD187860F1003ADCEA /* MFLConstants.m in Sources */,
 				1D52574616EB66F200A91244 /* FetchRequestInfoController.m in Sources */,
 				9780EDFFBC753AD96BBF64A1 /* MFLUtils.m in Sources */,
+				9780EB41F7B0A5F7F26CC326 /* MBTableGrid.m in Sources */,
+				9780EE2D16F145612FB55022 /* MBTableGridCell.m in Sources */,
+				9780E1E97FFD8CE6DCDC1C67 /* MBTableGridController.m in Sources */,
+				9780E6016C282F734A9A3BB2 /* MBTableGridHeaderCell.m in Sources */,
+				9780E1BB6B35F5AB4331FDC0 /* MBTableGridHeaderView.m in Sources */,
+				9780EDC1D790F6F98FDCDEAD /* MBTableGridContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -865,8 +921,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CoreDataUtil/CoreDataPro.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDataUtil/CoreDataUtil-Prefix.pch";
@@ -881,8 +937,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CoreDataUtil/CoreDataPro.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDataUtil/CoreDataUtil-Prefix.pch";

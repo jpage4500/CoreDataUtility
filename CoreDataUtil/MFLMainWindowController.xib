@@ -8,7 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MFLMainWindowController">
             <connections>
                 <outlet property="dataSourceList" destination="405" id="429"/>
-                <outlet property="entityContentTable" destination="27" id="89"/>
+                <outlet property="entityContentTable" destination="7" id="YsQ-hC-pxY"/>
                 <outlet property="generatedPredicateLabel" destination="235" id="266"/>
                 <outlet property="historySegmentedControl" destination="146" id="299"/>
                 <outlet property="predicateEditor" destination="239" id="281"/>
@@ -136,129 +136,9 @@
                                 </subviews>
                                 <accessibility description="Entity Selection" help="Select the entity to display"/>
                             </customView>
-                            <customView wantsLayer="YES" id="7">
+                            <customView wantsLayer="YES" id="7" customClass="MBTableGrid">
                                 <rect key="frame" x="211" y="0.0" width="589" height="526"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <subviews>
-                                    <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="8">
-                                        <rect key="frame" x="-1" y="0.0" width="589" height="527"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <clipView key="contentView" wantsLayer="YES" id="vVO-v7-CIc">
-                                            <rect key="frame" x="1" y="17" width="587" height="509"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <tableView wantsLayer="YES" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" headerView="25" viewBased="YES" id="27" customClass="EntityDataTableView">
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <size key="intercellSpacing" width="3" height="2"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                    <tableColumns>
-                                                        <tableColumn width="125.72265625" minWidth="10" maxWidth="3.4028234663852886e+38" id="29">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                                <font key="font" metaFont="smallSystem"/>
-                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                            </tableHeaderCell>
-                                                            <customCell key="dataCell" alignment="left" id="31">
-                                                                <font key="font" metaFont="system"/>
-                                                            </customCell>
-                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                            <prototypeCellViews>
-                                                                <tableCellView identifier="LINK" wantsLayer="YES" id="30" userLabel="MFLButtonTableViewCell" customClass="MFLTextTableCellView">
-                                                                    <rect key="frame" x="1" y="1" width="126" height="24"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <subviews>
-                                                                        <button id="33">
-                                                                            <rect key="frame" x="107" y="3" width="16" height="18"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSFollowLinkFreestandingTemplate" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="34">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <action selector="entityCellButtonClicked:" target="-2" id="298"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                    </subviews>
-                                                                </tableCellView>
-                                                            </prototypeCellViews>
-                                                        </tableColumn>
-                                                        <tableColumn width="97.7421875" minWidth="10" maxWidth="3.4028234663852886e+38" id="28">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                                <font key="font" metaFont="smallSystem"/>
-                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                            </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="37">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                            <prototypeCellViews>
-                                                                <tableCellView identifier="TEXT" wantsLayer="YES" id="36" userLabel="MFLTextTableViewCell" customClass="MFLTextTableCellView">
-                                                                    <rect key="frame" x="130" y="1" width="98" height="24"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <connections>
-                                                                        <outlet property="cellButton" destination="33" id="aGb-lk-PwL"/>
-                                                                    </connections>
-                                                                </tableCellView>
-                                                            </prototypeCellViews>
-                                                        </tableColumn>
-                                                        <tableColumn width="354" minWidth="10" maxWidth="3.4028234663852886e+38" id="yc3-1y-Evu">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                                <font key="font" metaFont="smallSystem"/>
-                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                            </tableHeaderCell>
-                                                            <customCell key="dataCell" alignment="left" id="Juj-F4-oDQ">
-                                                                <font key="font" metaFont="system"/>
-                                                            </customCell>
-                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                            <prototypeCellViews>
-                                                                <tableCellView identifier="TRANSFORM" wantsLayer="YES" id="BVB-Xy-e0g" userLabel="TransformableDataTableViewCell" customClass="MFLTextTableCellView">
-                                                                    <rect key="frame" x="231" y="1" width="354" height="24"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <subviews>
-                                                                        <button id="mJK-WD-ffl">
-                                                                            <rect key="frame" x="335" y="3" width="16" height="18"/>
-                                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                                                                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSInfo" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="MU5-uP-bV8">
-                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <action selector="infoCellButtonClicked:" target="-2" id="0H3-px-4EV"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                    </subviews>
-                                                                </tableCellView>
-                                                            </prototypeCellViews>
-                                                        </tableColumn>
-                                                    </tableColumns>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="-2" id="90"/>
-                                                        <outlet property="delegate" destination="-2" id="91"/>
-                                                    </connections>
-                                                </tableView>
-                                            </subviews>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="26">
-                                            <rect key="frame" x="1" y="510" width="587" height="16"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="24">
-                                            <rect key="frame" x="224" y="17" width="15" height="102"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </scroller>
-                                        <tableHeaderView key="headerView" toolTip="Click to sort by column" id="25">
-                                            <rect key="frame" x="0.0" y="0.0" width="587" height="17"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableHeaderView>
-                                        <accessibility description="Contents of entity" help="Entity data"/>
-                                    </scrollView>
-                                </subviews>
                             </customView>
                         </subviews>
                         <holdingPriorities>
@@ -362,6 +242,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="4"/>
             </connections>
+            <point key="canvasLocation" x="852" y="563"/>
         </window>
         <window title="Edit Predicate" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="229" userLabel="PredicateSheet">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES"/>
@@ -482,10 +363,8 @@ Gw
     </objects>
     <resources>
         <image name="Entity_Small" width="15" height="15"/>
-        <image name="NSFollowLinkFreestandingTemplate" width="14" height="14"/>
         <image name="NSGoLeftTemplate" width="9" height="12"/>
         <image name="NSGoRightTemplate" width="9" height="12"/>
-        <image name="NSInfo" width="32" height="32"/>
         <image name="NSQuickLookTemplate" width="19" height="12"/>
         <image name="NSRefreshTemplate" width="11" height="15"/>
     </resources>
