@@ -26,6 +26,10 @@
 #import <Cocoa/Cocoa.h>
 #import "MBTableGridHeaderCell.h"
 
+extern NSString* const kAutosavedColumnWidthKey;
+extern NSString* const kAutosavedColumnIndexKey;
+extern NSString* const kAutosavedColumnHiddenKey;
+
 @class MBTableGrid;
 
 /**
@@ -48,7 +52,9 @@
     BOOL canResize;
     BOOL isResizing;
     NSUInteger draggingColumnIndex;
-    
+	
+	NSMutableDictionary *columnAutoSaveProperties;
+	
 }
 
 /**
@@ -79,6 +85,22 @@
  * @brief		The orientation of the receiver.
  */
 @property MBTableGridHeaderOrientation orientation;
+
+/**
+ * @brief		The indicator image for the header cell
+ */
+@property (nonatomic, strong) NSImage *indicatorImage;
+
+/**
+ * @brief		The column to set the indicator image on
+ */
+@property (nonatomic) NSUInteger indicatorImageColumn;
+
+/**
+ * @brief		The autosave name for this grid
+ */
+@property (nonatomic) NSString *autosaveName;
+
 
 /**
  * @}

@@ -38,7 +38,7 @@
  *				and editing capabilities of MBTableGrid. It is designed
  *				to be placed inside a scroll view.
  */
-@interface MBTableGridContentView : NSView {
+@interface MBTableGridContentView : NSView <NSTextDelegate> {
 	NSInteger mouseDownColumn;
 	NSInteger mouseDownRow;
 	
@@ -56,7 +56,7 @@
 	
 	BOOL isDraggingColumnOrRow;
 	
-	MBTableGridCell *_cell;
+	MBTableGridCell *_defaultCell;
     
     NSMutableArray *columnWidths;
     
@@ -92,7 +92,7 @@
  *				selects the top-left one and begins
  *				editing its value.
  */
-- (void)editSelectedCell:(id)sender;
+- (void)editSelectedCell:(id)sender text:(NSString *)aString;
 
 /**
  * @}

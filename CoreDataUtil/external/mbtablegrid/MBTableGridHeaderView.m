@@ -27,6 +27,10 @@
 #import "MBTableGrid.h"
 #import "MBTableGridContentView.h"
 
+NSString* const kAutosavedColumnWidthKey = @"AutosavedColumnWidth";
+NSString* const kAutosavedColumnIndexKey = @"AutosavedColumnIndex";
+NSString* const kAutosavedColumnHiddenKey = @"AutosavedColumnHidden";
+
 @interface MBTableGrid (Private)
 - (NSString *)_headerStringForColumn:(NSUInteger)columnIndex;
 - (NSString *)_headerStringForRow:(NSUInteger)rowIndex;
@@ -97,18 +101,25 @@
 					[headerCell setState:NSOffState];
 				}
 				
+				if (column == self.indicatorImageColumn) {
+					[headerCell setSortIndicatorImage:self.indicatorImage];
+				} else {
+					[headerCell setSortIndicatorImage:nil];
+				}
+				
 				[headerCell setStringValue:[[self tableGrid] _headerStringForColumn:column]];
 				[headerCell drawWithFrame:headerRect inView:self];
                 
-                // Create new tracking area for resizing columns
-                NSRect resizeRect = NSMakeRect(NSMinX(headerRect) + NSWidth(headerRect) - 2, NSMinY(headerRect), 5, NSHeight(headerRect));
-                NSTrackingArea *resizeTrackingArea = [[NSTrackingArea alloc] initWithRect:resizeRect options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:nil];
-                
-                // keep track of tracking areas and add tracking to view
-                [trackingAreas addObject:resizeTrackingArea];
-                [self addTrackingArea:resizeTrackingArea];
-                
 			}
+			
+			// Create new tracking area for resizing columns
+			NSRect resizeRect = NSMakeRect(NSMinX(headerRect) + NSWidth(headerRect) - 2, NSMinY(headerRect), 5, NSHeight(headerRect));
+			NSTrackingArea *resizeTrackingArea = [[NSTrackingArea alloc] initWithRect:resizeRect options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways) owner:self userInfo:nil];
+			
+			// keep track of tracking areas and add tracking to view
+			[trackingAreas addObject:resizeTrackingArea];
+			[self addTrackingArea:resizeTrackingArea];
+			
 			column++;
 		}
         
@@ -153,7 +164,11 @@
 	mouseDownLocation = loc;
 	NSInteger column = [[self tableGrid] columnAtPoint:[self convertPoint:loc toView:[self tableGrid]]];
 	NSInteger row = [[self tableGrid] rowAtPoint:[self convertPoint:loc toView:[self tableGrid]]];
-	
+
+    if (column == NSNotFound || row == NSNotFound) {
+        return;
+    }
+
     if (canResize) {
         
         // Set resize column index
@@ -193,7 +208,9 @@
                     }
                 }
             }
-        }
+        } else if ([theEvent clickCount] == 2) {
+			
+		}
         
         // Pass the event back to the MBTableGrid (Used to give First Responder status)
         [[self tableGrid] mouseDown:theEvent];
@@ -215,7 +232,8 @@
         lastMouseDraggingLocation = loc;
         
         // Resize column and resize views
-        [self.tableGrid resizeColumnWithIndex:draggingColumnIndex withDistance:dragDistance];
+		
+        [self.tableGrid resizeColumnWithIndex:draggingColumnIndex withDistance:dragDistance location:loc];
                
     } else {
     
@@ -273,9 +291,19 @@
 {
     
     if (canResize) {
-        
+		
+		// if we have an autosaveName, store a dictionary of column widths.
+		
+		if (self.autosaveName) {
+			[self autoSaveColumnProperties];
+		}
+		
         isResizing = NO;
-        
+		
+		// update cache of column rects
+		
+		[[self tableGrid].columnRects removeAllObjects];
+		
     } else {
         
         // If we only clicked on a header that was part of a bigger selection, select it
@@ -326,6 +354,23 @@
     
 }
 
+
+- (void)autoSaveColumnProperties {
+	if (!columnAutoSaveProperties) {
+		columnAutoSaveProperties = [NSMutableDictionary dictionary];
+	}
+	
+	[self.tableGrid.columnRects enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		NSValue *rectValue = obj;
+		NSRect rect = [rectValue rectValue];
+		NSDictionary *columnDict = @{kAutosavedColumnWidthKey : @(rect.size.width),
+									 kAutosavedColumnHiddenKey : @NO};
+		columnAutoSaveProperties[[NSString stringWithFormat:@"C-%@", key]] = columnDict;
+	}];
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:columnAutoSaveProperties forKey:self.autosaveName];
+}
 
 #pragma mark -
 #pragma mark Subclass Methods

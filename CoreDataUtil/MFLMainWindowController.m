@@ -1116,15 +1116,17 @@ static const int MAX_TEXT_LENGTH = 255;
 #pragma mark MBTableGridDataSource
 
 - (NSUInteger)numberOfRowsInTableGrid:(MBTableGrid *)aTableGrid {
+    NSLog(@"numberOfRowsInTableGrid");
     return [self.coreDataIntrospection entityDataCount];
 }
 
 - (NSUInteger)numberOfColumnsInTableGrid:(MBTableGrid *)aTableGrid {
+    NSLog(@"numberOfColumnsInTableGrid");
     return [self.columnNames count];
 }
 
 - (id)tableGrid:(MBTableGrid *)aTableGrid objectValueForColumn:(NSUInteger)columnIndex row:(NSUInteger)row {
-    //NSLog(@"objectValueForColumn: col:%d, row:%d", (int)columnIndex, (int)row);
+    NSLog(@"objectValueForColumn: col:%d, row:%d", (int)columnIndex, (int)row);
     NSString *colName = self.columnNames[columnIndex];
 
     // check cache for view data
@@ -1245,17 +1247,37 @@ static const int MAX_TEXT_LENGTH = 255;
     return viewText;
 }
 
-- (float)tableGrid:(MBTableGrid *)aTableGrid withForColumn:(NSUInteger)columnIndex {
-    // TODO (JP) - restore saved preference for column width (project+entity+column combo)
-    return 30;
-}
-
 - (NSString *)tableGrid:(MBTableGrid *)aTableGrid headerStringForColumn:(NSUInteger)columnIndex {
     return self.columnNames[columnIndex];
 }
 
 - (NSColor *)tableGrid:(MBTableGrid *)aTableGrid backgroundColorForColumn:(NSUInteger)columnIndex row:(NSUInteger)rowIndex {
     return [NSColor whiteColor];
+}
+
+- (float)tableGrid:(MBTableGrid *)aTableGrid setWidthForColumn:(NSUInteger)columnIndex {
+    NSLog(@"widthforCol:%d", (int)columnIndex);
+    return 30;
+}
+
+- (void)tableGridDidMoveColumns:(NSNotification *)aNotification {
+    NSLog(@"tableGridDidMoveColumns");
+}
+
+- (BOOL)tableGrid:(MBTableGrid *)aTableGrid canMoveRows:(NSIndexSet *)rowIndexes toIndex:(NSUInteger)index {
+    return NO;
+}
+
+- (BOOL)tableGrid:(MBTableGrid *)aTableGrid canMoveColumns:(NSIndexSet *)columnIndexes toIndex:(NSUInteger)index {
+    return YES;
+}
+
+- (NSImage *)tableGrid:(MBTableGrid *)aTableGrid accessoryButtonImageForColumn:(NSUInteger)columnIndex row:(NSUInteger)row {
+    return nil;
+}
+
+- (BOOL)tableGrid:(MBTableGrid *)aTableGrid shouldEditColumn:(NSUInteger)columnIndex row:(NSUInteger)rowIndex {
+    return NO;
 }
 
 @end
