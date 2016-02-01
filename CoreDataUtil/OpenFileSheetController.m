@@ -9,6 +9,7 @@
 #import "OpenFileSheetController.h"
 #import "MFLConstants.h"
 #import "SimulatorItem.h"
+#import "Logger.h"
 
 @interface OpenFileSheetController ()
 
@@ -95,7 +96,7 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    NSLog(@"%s", __FUNCTION__);
+    DDLog(@"%s", __FUNCTION__);
     
     if (self.initialValues != nil)
     {
@@ -138,7 +139,7 @@
 
 - (void)awakeFromNib
 {
-    NSLog(@"awakeFromNib");
+    DDLog(@"awakeFromNib");
     
     [self initializeTab];
 }
@@ -234,7 +235,7 @@
 
 - (NSOrderedSet *)filesWithExtension:(NSString*)dir :(NSString *)extension
 {
-    NSLog(@"Scanning: %@", dir);
+    DDLog(@"Scanning: %@", dir);
     
     NSMutableOrderedSet *contents = [[NSMutableOrderedSet alloc] init];
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -490,7 +491,7 @@
     
     for (NSRunningApplication* app in self.processList)
     {        
-        NSLog(@"App: %@->[%@]",[app localizedName], [app bundleURL]);
+        DDLog(@"App: %@->[%@]",[app localizedName], [app bundleURL]);
         [apps addObject:[app localizedName]];
     }
     
@@ -518,7 +519,7 @@
     NSURL* simulatorUrl = nil; //[[self applicationSupportDirectory] URLByAppendingPathComponent:@"iPhone Simulator"];
     //SimulatorItem* simulatorItem = [self.simulatorSourceList itemAtRow:[self.simulatorSourceList selectedRow]];
     if ([self.simulatorTabModelTextField stringValue] == nil || [[self.simulatorTabModelTextField stringValue] length] == 0) {
-        NSLog(@"TODO: prompt user to select an app first.");
+        DDLog(@"TODO: prompt user to select an app first.");
         NSBeep();
         return;
     } else {
@@ -577,7 +578,7 @@
     if (currentTab == SimulatorTab) {
         SimulatorItem* simulatorItem = [self.simulatorSourceList itemAtRow:[self.simulatorSourceList selectedRow]];
         if (simulatorItem.itemType != MFLAppItem) {
-            NSLog(@"TODO: prompt user to select app first.");
+            DDLog(@"TODO: prompt user to select app first.");
             NSBeep();
             return;
         }
@@ -651,7 +652,7 @@
         if (self.processList != nil)
         {
             NSRunningApplication* selectedApp = (self.processList)[selectedItemIndex];
-            NSLog(@"Selected: %@", selectedApp);
+            DDLog(@"Selected: %@", selectedApp);
             
             NSSet* momFiles = [self filesWithExtension: [[selectedApp bundleURL] path]: MFL_MOM_FILE_EXTENSION];
             
@@ -674,7 +675,7 @@
         }
         else
         {
-            NSLog(@"value: %@ - %@", [self.processSelectorBox objectValueOfSelectedItem], [[self.processSelectorBox objectValueOfSelectedItem] class]);
+            DDLog(@"value: %@ - %@", [self.processSelectorBox objectValueOfSelectedItem], [[self.processSelectorBox objectValueOfSelectedItem] class]);
             
             self.momFileUrl = [NSURL fileURLWithPath:(self.simulatorUrlList)[selectedItemIndex]];
             switch (currentTab)
@@ -714,7 +715,7 @@
 
 - (NSDictionary *)show:(NSWindow *)sender :(NSDictionary *)initialValues
 {
-    NSLog(@"show");
+    DDLog(@"show");
     NSWindow* window = self.window;
     [self setInitialValues:initialValues];
     [self initializeTab];
@@ -783,7 +784,7 @@
 }
 
 - (IBAction) simulatorInfo: (id) sender {
-    NSLog(@"SimulatorInfo selected");
+    DDLog(@"SimulatorInfo selected");
     
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/yepher/CoreDataUtility#xcode-6-and-ios-simulator-project-files"]];
     
@@ -824,7 +825,7 @@
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
     id result = (item == nil) ? [SimulatorItem rootItem] : [(SimulatorItem *)item childAtIndex:index];
-    //NSLog(@"%s: %@", __FUNCTION__, result);
+    //DDLog(@"%s: %@", __FUNCTION__, result);
     return result;
 }
 
@@ -845,15 +846,15 @@
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    //NSLog(@"Item Selected: %@", notification);
+    //DDLog(@"Item Selected: %@", notification);
     
     SimulatorItem* simulatorItem = [self.simulatorSourceList itemAtRow:[self.simulatorSourceList selectedRow]];
     if (simulatorItem.itemType == MFLAppItem) {
-        NSLog(@"Selected Application: %@", simulatorItem.label);
+        DDLog(@"Selected Application: %@", simulatorItem.label);
         //self.momFileUrl = [NSURL URLWithString:simulatorItem.fullPath];
         [self.simulatorTabModelTextField setStringValue:simulatorItem.fullAppPath];
         [self showOrHidePersistenceButtons];
-        //NSLog(@"Documents: %@", simulatorItem.documentsFolder);
+        //DDLog(@"Documents: %@", simulatorItem.documentsFolder);
         //[self.currentPersistenceTextField setStringValue:simulatorItem.documentsFolder];
     }
 }

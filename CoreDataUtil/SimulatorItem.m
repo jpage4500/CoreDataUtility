@@ -7,6 +7,7 @@
 //
 
 #import "SimulatorItem.h"
+#import "Logger.h"
 
 // Meta Data PList File
 // .com.apple.mobile_container_manager.metadata.plist
@@ -56,14 +57,14 @@ static SimulatorItem *rootItem = nil;
     if (_children == nil) {
         
         if (self.itemType == MFLRootItem) {
-            NSLog(@"Parent is RootItem so return simulators");
+            DDLog(@"Parent is RootItem so return simulators");
             _children = [self loadSimulators];
         } else if (self.itemType == MFLSimulatorItem) {
-            NSLog(@"Parent is Simulator so return apps");
+            DDLog(@"Parent is Simulator so return apps");
             _children = [self findApplicationsAtPath:self.fullPath];
             
         } else {
-            NSLog(@"Unknown item type: %ld", self.parent.itemType);
+            DDLog(@"Unknown item type: %ld", self.parent.itemType);
         }
     }
     
@@ -160,13 +161,13 @@ static SimulatorItem *rootItem = nil;
         NSArray *array = [fileManager contentsOfDirectoryAtPath:fullPath error:NULL];
         
         for (NSString* appPath in array) {
-            NSLog(@"appPath: %@", appPath);
+            DDLog(@"appPath: %@", appPath);
             NSString* appBaseFolder = [NSString stringWithFormat:@"%@/%@",fullPath, appPath];
             NSString* metaFilePath = [NSString stringWithFormat:@"%@/%@", appBaseFolder, APP_CONTAINER_PLIST];
-            NSLog(@"will scan %@", metaFilePath);
+            DDLog(@"will scan %@", metaFilePath);
             NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:metaFilePath];
             if (dict != nil) {
-                NSLog(@"found: %@", [dict objectForKeyedSubscript:APP_NAME_KEY]);
+                DDLog(@"found: %@", [dict objectForKeyedSubscript:APP_NAME_KEY]);
                 SimulatorItem *item = [[SimulatorItem alloc] initWithPath:appPath parent:self];
                 [item setFullAppPath:[self fileWithExtension:appBaseFolder : @".app"]];
                 [item setSimInfo:dict];
@@ -191,13 +192,13 @@ static SimulatorItem *rootItem = nil;
         NSArray *array = [fileManager contentsOfDirectoryAtPath:fullPath error:NULL];
         
         for (NSString* appPath in array) {
-            NSLog(@"appPath: %@", appPath);
+            DDLog(@"appPath: %@", appPath);
             NSString* appBaseFolder = [NSString stringWithFormat:@"%@/%@",fullPath, appPath];
             NSString* metaFilePath = [NSString stringWithFormat:@"%@/%@", appBaseFolder, APP_CONTAINER_PLIST];
-            NSLog(@"will scan %@", metaFilePath);
+            DDLog(@"will scan %@", metaFilePath);
             NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:metaFilePath];
             if (dict != nil) {
-                NSLog(@"found: %@", [dict objectForKeyedSubscript:APP_NAME_KEY]);
+                DDLog(@"found: %@", [dict objectForKeyedSubscript:APP_NAME_KEY]);
                 if ([appName isEqualToString:[dict objectForKeyedSubscript:APP_NAME_KEY]]) {
                     return [NSString stringWithFormat:@"%@/Documents", appBaseFolder];
                 }
@@ -210,7 +211,7 @@ static SimulatorItem *rootItem = nil;
 }
 
 - (NSString *)fileWithExtension:(NSString*)dir :(NSString *)extension {
-    NSLog(@"Scanning: %@", dir);
+    DDLog(@"Scanning: %@", dir);
     
     // NSMutableOrderedSet *contents = [[NSMutableOrderedSet alloc] init];
     NSFileManager *fm = [NSFileManager defaultManager];

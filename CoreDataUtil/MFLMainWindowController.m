@@ -17,6 +17,7 @@
 #import "FetchRequestInfoController.h"
 #import "ObjectInfoController.h"
 #import "MFLUtils.h"
+#import "Logger.h"
 
 // max length of text to display in cell
 static const int MAX_TEXT_LENGTH = 255;
@@ -144,7 +145,7 @@ static const int MAX_TEXT_LENGTH = 255;
 
 - (void)addTableColumnWithIdentifier:(NSString *)ident
 {
-    //NSLog(@"Adding Column: %@", ident);
+    //DDLog(@"Adding Column: %@", ident);
     NSTableColumn *newColumn = [[NSTableColumn alloc] initWithIdentifier:ident];
     [[newColumn headerCell] setTitle:NSLocalizedStringFromTable(ident, @"TableHeaders", nil)];
     
@@ -178,7 +179,7 @@ static const int MAX_TEXT_LENGTH = 255;
 
 - (void) removeColumns
 {
-    //NSLog(@"==== removeColumns");
+    //DDLog(@"==== removeColumns");
     while ([[self entityContentTable] numberOfColumns] > 0)
     {
         [self.entityContentTable removeTableColumn:[self.entityContentTable tableColumns][0]];
@@ -186,7 +187,7 @@ static const int MAX_TEXT_LENGTH = 255;
 
     // clear cache
     [self.cachedRows removeAllObjects];
-    //NSLog(@"There are now %ld columns", [[self entityContentTable] numberOfColumns]);
+    //DDLog(@"There are now %ld columns", [[self entityContentTable] numberOfColumns]);
 }
 
 - (BOOL)canEnableBackHistoryControl
@@ -251,7 +252,7 @@ static const int MAX_TEXT_LENGTH = 255;
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-    //NSLog(@"- (void)tableViewSelectionDidChange:[%@]", aNotification);
+    //DDLog(@"- (void)tableViewSelectionDidChange:[%@]", aNotification);
     if ([self.dataSourceList isEqualTo:[aNotification object]])
     {
         [self onEntitySelected];
@@ -308,7 +309,7 @@ static const int MAX_TEXT_LENGTH = 255;
         }];
 
         [self enableDisableHistorySegmentedControls];
-        NSLog(@"Selected %@, selected=%d, section:%d, %@ms", selectedNode.title, (int)selected, (int)section, [MFLUtils duration:startTime]);
+        DDLog(@"Selected %@, selected=%d, section:%d, %@ms", selectedNode.title, (int)selected, (int)section, [MFLUtils duration:startTime]);
     }
 }
 
@@ -359,15 +360,15 @@ static const int MAX_TEXT_LENGTH = 255;
     
     if (aTableView == [self dataSourceList])
     {
-        //NSLog(@"entityTable  numberOfRowsInTableView=[%lu]", [self.coreDataIntrospection entityCount]);
+        //DDLog(@"entityTable  numberOfRowsInTableView=[%lu]", [self.coreDataIntrospection entityCount]);
         return [self.coreDataIntrospection entityCount];
         
     }  else if (aTableView == [self entityContentTable])
     {
-        //NSLog(@"entityContentTable  numberOfRowsInTableView=[%lu]", [self.coreDataIntrospection entityDataCount]);
+        //DDLog(@"entityContentTable  numberOfRowsInTableView=[%lu]", [self.coreDataIntrospection entityDataCount]);
         return [self.coreDataIntrospection entityDataCount];
     } else {
-        NSLog(@"Error: unknown table view selected. [%@]", aTableView);
+        DDLog(@"Error: unknown table view selected. [%@]", aTableView);
     }
     return 0;
 }
@@ -507,7 +508,7 @@ static const int MAX_TEXT_LENGTH = 255;
         viewText = [NSString stringWithFormat:@"%@", @"NSDictionary Data"];
     }
     else {
-        NSLog(@"Unknown content: %@", valueObj);
+        DDLog(@"Unknown content: %@", valueObj);
         viewText = [NSString stringWithFormat:@"??? %@ ???", [valueObj class]];
     }
 
@@ -539,7 +540,7 @@ static const int MAX_TEXT_LENGTH = 255;
     }
     MFLTextTableCellView *textCell = [self.entityContentTable makeViewWithIdentifier:identifier owner:self];
     if (textCell == nil) {
-        NSLog(@"creating: %d", (int)type);
+        DDLog(@"creating: %d", (int)type);
         textCell = [MFLTextTableCellView new];
         textCell.identifier = identifier;
         textCell.wantsLayer = YES;
@@ -697,7 +698,7 @@ static const int MAX_TEXT_LENGTH = 255;
 
 - (BOOL) openProject:(NSString *)filename
 {
-    NSLog(@"Load Project File: [%@]", filename);
+    DDLog(@"Load Project File: [%@]", filename);
     NSDictionary* project = [NSDictionary dictionaryWithContentsOfFile:filename];
     NSString* momFilePath = project[MFL_MOM_FILE_KEY];
     NSString* dbFilePath = project[MFL_DB_FILE_KEY];
@@ -723,7 +724,7 @@ static const int MAX_TEXT_LENGTH = 255;
         NSRange pathRange = [momFilePath rangeOfString:APPLICATIONS_DIR];
         if (pathRange.location != NSNotFound) {
             // This is an iOS simulator project
-            NSLog(@"momPath: %@", momFilePath);
+            DDLog(@"momPath: %@", momFilePath);
             NSString* applicationsPath = [self convertToIosApplicationsBasePath:momFilePath];
             NSString* relativeMomPath = [self convertToApplicationPath:momFilePath];
             NSString* relativeDBPath = [self convertToApplicationPath:dbFilePath];
@@ -734,7 +735,7 @@ static const int MAX_TEXT_LENGTH = 255;
             NSError* error;
             NSArray* contents = [fileManager contentsOfDirectoryAtURL:[NSURL URLWithString:applicationsPath] includingPropertiesForKeys:@[NSURLFileResourceTypeDirectory] options:0 error:&error];
             for (NSString* content in contents) {
-                NSLog(@"Found: %@", content);
+                DDLog(@"Found: %@", content);
                 NSString* testMomPath = [NSString stringWithFormat:@"%@%@",content, relativeMomPath];
                 NSURL* testMomUrl = [NSURL URLWithString:testMomPath];
                 if ([testMomUrl checkResourceIsReachableAndReturnError:&err] == NO) {
@@ -849,7 +850,7 @@ static const int MAX_TEXT_LENGTH = 255;
 
 - (NSInteger) persistenceFileFormat {
     
-    //NSLog(@"[%@]=[%@]",NSSQLiteStoreType, [self.coreDataIntrospection storeType]);
+    //DDLog(@"[%@]=[%@]",NSSQLiteStoreType, [self.coreDataIntrospection storeType]);
     
     if ([NSSQLiteStoreType isEqualToString:[self.coreDataIntrospection storeType]]) {
         return MFL_SQLiteStoreType;
@@ -902,10 +903,10 @@ static const int MAX_TEXT_LENGTH = 255;
 
 - (void)getInfoAction
 {
-    //NSLog(@"getInfoAction");
+    //DDLog(@"getInfoAction");
     NSInteger selected = [[self dataSourceList] getRightClickedRow] - 1;
     if (selected < 0) {
-        NSLog(@"getInfoAction: bad index:%d", (int)selected);
+        DDLog(@"getInfoAction: bad index:%d", (int)selected);
         return;
     }
     NSEntityDescription* entityDescription = [self.coreDataIntrospection entityDescription:selected];
@@ -1056,7 +1057,7 @@ static const int MAX_TEXT_LENGTH = 255;
     // backup last selected entity
     NSInteger selectedRow = [self.dataSourceList selectedRow];
 
-    NSLog(@"refreshItemSelected: selectedRow:%d", (int)selectedRow);
+    DDLog(@"refreshItemSelected: selectedRow:%d", (int)selectedRow);
 
     // if loaded from project file, reload from same file. allows updating URL's in project file while running
     if (self.projectFile != nil) {
@@ -1077,16 +1078,16 @@ static const int MAX_TEXT_LENGTH = 255;
 }
 
 - (IBAction) showPredicateItemSelected:(id)sender {
-    //NSLog(@"showPredicateItemSelected [%@]", sender);
+    //DDLog(@"showPredicateItemSelected [%@]", sender);
     
 }
 
 
 - (IBAction) dateFormatItemSelected:(id)sender {
-    //NSLog(@"dateFormatItemSelected [%@]", sender);
+    //DDLog(@"dateFormatItemSelected [%@]", sender);
     
     NSSegmentedControl* control = (NSSegmentedControl*) sender;
-    //NSLog(@"Selected %ld", [control selectedSegment]);
+    //DDLog(@"Selected %ld", [control selectedSegment]);
     
     switch ([control selectedSegment]) {
         case 0:
@@ -1107,7 +1108,7 @@ static const int MAX_TEXT_LENGTH = 255;
             break;
         default:
             // Unknown date style so revert to short...
-            NSLog(@"Error: unknown date format selected. Going back to default value.");
+            DDLog(@"Error: unknown date format selected. Going back to default value.");
             self.dateStyle = NSDateFormatterShortStyle;
             break;
     }
@@ -1154,12 +1155,12 @@ static const int MAX_TEXT_LENGTH = 255;
         return;
     }
     
-    NSLog(@"Entity Name: %@", [entityDescription name]);
+    DDLog(@"Entity Name: %@", [entityDescription name]);
     BOOL isFirstRun = NO;
     if (self.baseRowTemplates == nil)
     {
         self.baseRowTemplates = [self.predicateEditor rowTemplates];
-        NSLog(@"Existing Templates: [%@]", self.baseRowTemplates);
+        DDLog(@"Existing Templates: [%@]", self.baseRowTemplates);
         isFirstRun = YES;
     }
     
@@ -1191,7 +1192,7 @@ static const int MAX_TEXT_LENGTH = 255;
 
 - (IBAction)onPredicateEdited:(id)sender
 {
-    NSLog(@"onPredicateEdited: %@", [self.predicateEditor objectValue]);
+    DDLog(@"onPredicateEdited: %@", [self.predicateEditor objectValue]);
     [self.generatedPredicateLabel setStringValue:[self.predicateEditor objectValue]];
 }
 

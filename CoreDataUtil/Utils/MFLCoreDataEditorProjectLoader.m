@@ -8,6 +8,7 @@
 
 #import "MFLCoreDataEditorProjectLoader.h"
 #import "MFLConstants.h"
+#import "Logger.h"
 
 @implementation MFLCoreDataEditorProjectLoader
 
@@ -56,7 +57,7 @@
         NSURL* modelURL = [object valueForKey:@"modelURL"];
         NSURL* storeURL = [object valueForKey:@"storeURL"];
         
-        NSLog(@"modelURL: %@\nstoreURL: %@",modelURL, storeURL);
+        DDLog(@"modelURL: %@\nstoreURL: %@",modelURL, storeURL);
         NSDictionary* newValues = @{MFL_DB_FORMAT_KEY: [NSNumber numberWithInt:MFL_SQLiteStoreType],
                                    MFL_MOM_FILE_KEY: [modelURL path],
                                    MFL_DB_FILE_KEY: [storeURL path]};

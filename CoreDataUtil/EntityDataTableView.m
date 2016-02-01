@@ -9,6 +9,7 @@
 #import "EntityDataTableView.h"
 #import "MFLMainWindowController.h"
 #import "MFLTextTableCellView.h"
+#import "Logger.h"
 
 @implementation EntityDataTableView
 
@@ -30,7 +31,7 @@
 
     // get currently selected rows
     NSIndexSet* indexSet = [self selectedRowIndexes];
-    //NSLog(@"Right clicked at row:%d, col:%d, point:%@, selected:%d", (int)rightClickedRow, (int)rightClickedCol, NSStringFromPoint(eventLocation), (int)indexSet.firstIndex);
+    //DDLog(@"Right clicked at row:%d, col:%d, point:%@, selected:%d", (int)rightClickedRow, (int)rightClickedCol, NSStringFromPoint(eventLocation), (int)indexSet.firstIndex);
 
     // if user right-clicks on a non-selected row, select that row
     if (![indexSet containsIndex:(NSUInteger)rightClickedRow]) {
@@ -79,7 +80,7 @@
     int selectedRow = (int)[self selectedRow]-1;
     int	numberOfRows = (int)[self numberOfRows];
     
-    NSLog(@"Selected Row: %d, Total Rows: %d", selectedRow, numberOfRows);
+    DDLog(@"Selected Row: %d, Total Rows: %d", selectedRow, numberOfRows);
     
     NSIndexSet* indexSet = [self selectedRowIndexes];
     if (indexSet != nil && [indexSet firstIndex] != NSNotFound) {
@@ -88,7 +89,7 @@
         NSMutableString *textBuf = [NSMutableString string];
         
         NSArray *tableColumns = [self tableColumns];
-        NSLog(@"Columns: %@", tableColumns);
+        DDLog(@"Columns: %@", tableColumns);
         
         for (NSTableColumn* columnName in tableColumns) {
             [textBuf appendFormat:@"%@\t", [columnName identifier] ];
@@ -152,19 +153,19 @@
 
 - (IBAction) copy:(id)sender
 {
-    NSLog(@"Copy Selected entityDataTable items. [%@]", sender);
+    DDLog(@"Copy Selected entityDataTable items. [%@]", sender);
     [self copySelectedRow:NO];
 }
 
 - (IBAction) copyFormatted:(id)sender
 {
-    NSLog(@"copyFormated Selected entityDataTable items. [%@]", sender);
+    DDLog(@"copyFormated Selected entityDataTable items. [%@]", sender);
     [self copySelectedRow:YES];
 }
 
 - (IBAction) copyCell:(id)sender {
     MFLTextTableCellView *cell = [self viewAtColumn:rightClickedCol row:rightClickedRow makeIfNecessary:NO];
-    NSLog(@"copyCell: r:%d, c:%d, %@", (int)rightClickedRow, (int)rightClickedCol, cell.text);
+    DDLog(@"copyCell: r:%d, c:%d, %@", (int)rightClickedRow, (int)rightClickedCol, cell.text);
 
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
     [pb declareTypes:@[NSStringPboardType] owner:nil];

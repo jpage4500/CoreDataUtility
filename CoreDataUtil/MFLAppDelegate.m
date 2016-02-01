@@ -11,6 +11,7 @@
 #import "MFLMainWindowController.h"
 #import "OpenFileSheetController.h"
 #import "MFLCoreDataEditorProjectLoader.h"
+#import "Logger.h"
 
 NSString* const APPLICATIONS_DIR = @"/Applications/";
 
@@ -37,7 +38,7 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
         return result;
         
     } else if ([filename hasSuffix:MFL_MOM_FILE_EXTENSION]) {
-        NSLog(@"Load MOM File: [%@]", filename);
+        DDLog(@"Load MOM File: [%@]", filename);
         //NSURL* momUrl = [NSURL fileURLWithPath:filename];
         NSDictionary* initialValue = @{MFL_MOM_FILE_KEY: filename};
         
@@ -76,7 +77,7 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
             project = [externalLoader decodeProjectFile:filename];
         
         } @catch (NSException *exception) {
-            NSLog(@"Failed to load CoreDataEditor External Project [%@]", exception);
+            DDLog(@"Failed to load CoreDataEditor External Project [%@]", exception);
         }
 
         if (project == nil) {
@@ -109,7 +110,7 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
         return YES;
         
     } else {
-        NSLog(@"Unknown file type [%@].", filename); 
+        DDLog(@"Unknown file type [%@].", filename);
         NSBeep();
         return NO;
     }
@@ -246,7 +247,7 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
 
 - (IBAction)openAction:(id)sender
 {
-    NSLog(@"openAction: [%@]", sender);
+    DDLog(@"openAction: [%@]", sender);
     [self.window makeKeyAndOrderFront:self];
     NSArray *fileTypes = @[MFL_COREDATA_PROJECT_EXTENSION, MFL_COREDATA_PROJECT_EXTENSION_UPERCASE, MFL_COREDATA_EDITOR_PROJECT_EXTENSION];
     
@@ -264,7 +265,7 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
 
 - (IBAction)newAction:(id)sender
 {
-    NSLog(@"New Action Called.");
+    DDLog(@"New Action Called.");
     if (self.openFileSheetController != nil) {
         NSBeep();
     }
@@ -312,7 +313,7 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
 
 
 - (IBAction)clearRecentDocuments:(id)sender {
-    NSLog(@"clearRecentDocuments: [%@]", sender);
+    DDLog(@"clearRecentDocuments: [%@]", sender);
     NSDocumentController *docController = [NSDocumentController sharedDocumentController];
     [docController clearRecentDocuments:sender];
 }
@@ -339,7 +340,7 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
     NSInteger persistenceType = [self.mainWindowController persistenceFileFormat];
     NSURL* persistenceUrl = [self.mainWindowController persistenceFileUrl];
     NSURL* momfileUrl = [self.mainWindowController momFileUrl];
-    NSLog(@"Will Save [%ld]\n%@\n%@",persistenceType, momfileUrl, persistenceUrl);
+    DDLog(@"Will Save [%ld]\n%@\n%@",persistenceType, momfileUrl, persistenceUrl);
     
     if (momfileUrl != nil)
     {
@@ -362,7 +363,7 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
             NSURL *saveUrl = [saveDlg URL];
             if (![stuffToSave writeToURL:saveUrl atomically:NO])
             {
-                NSLog(@"Error in saving file!");
+                DDLog(@"Error in saving file!");
             }
             else
             {
@@ -372,7 +373,7 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
             }
             self.projectHasChanged = NO;
         } else {
-            NSLog(@"User Canceled Save...");
+            DDLog(@"User Canceled Save...");
         }
     }
     
@@ -398,11 +399,11 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
         
         switch (answer) {
             case  NSAlertFirstButtonReturn:         // Quit Anyway
-                NSLog(@"NSAlertFirstButtonReturn: Quit without saving project");
+                DDLog(@"NSAlertFirstButtonReturn: Quit without saving project");
                 return NSTerminateNow;
                 break;
             case  NSAlertSecondButtonReturn:        // Save And Exit
-                NSLog(@"NSAlertSecondButtonReturn: Save project and exit");
+                DDLog(@"NSAlertSecondButtonReturn: Save project and exit");
                 [self saveAction:sender];
                 
                 if (self.projectHasChanged) {
@@ -413,12 +414,12 @@ NSString* const APPLICATIONS_DIR = @"/Applications/";
                 
                 break;
             case  NSAlertThirdButtonReturn:         // Cancel (Don't exit app)
-                NSLog(@"NSAlertThirdButtonReturn: Cancel");
+                DDLog(@"NSAlertThirdButtonReturn: Cancel");
                 return NSTerminateCancel;
                 break;
                 
             default:
-                NSLog(@"default");
+                DDLog(@"default");
                 return NSTerminateNow;
                 break;
         }

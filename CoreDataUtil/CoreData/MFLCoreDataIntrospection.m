@@ -8,6 +8,7 @@
 
 #import "MFLCoreDataIntrospection.h"
 #import "MFLUtils.h"
+#import "Logger.h"
 
 NSInteger const CORE_DATA_HISTORY_MAX = 100;
 
@@ -51,13 +52,13 @@ NSInteger const CORE_DATA_HISTORY_MAX = 100;
     [self setEntities:[[NSMutableArray alloc] init]];
     [self setEntityData:nil];
     
-    NSLog(@"momURL: [%@]", self.momFileUrl);
+    DDLog(@"momURL: [%@]", self.momFileUrl);
     NSManagedObjectModel* managedObjectModel = nil;
     @try {
         managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:self.momFileUrl];
         [self setObjModel:managedObjectModel];
     } @catch (NSException *exception) {
-        NSLog(@"main: Caught %@: %@", [exception name], [exception reason]);
+        DDLog(@"main: Caught %@: %@", [exception name], [exception reason]);
         if (self.delegate != nil) {
             NSError* error = [self errnoErrorWithReason:[NSString stringWithFormat:@"%@: %@", [exception name], [exception reason]]];
             [self.delegate onLoadObjectModelFailedWithError:error];
@@ -71,13 +72,13 @@ NSInteger const CORE_DATA_HISTORY_MAX = 100;
             // Success
             [self.delegate onLoadObjectModelSuccess];
         } else if (self.momFileUrl == nil) {
-            NSLog(@"Could not load Object File because it was nil!");
+            DDLog(@"Could not load Object File because it was nil!");
             NSError* error = [self  errnoErrorWithReason:@"Could not load Object File because it was nil!"];
             [self.delegate onLoadObjectModelFailedWithError:error];
             return;
         } else {
             // Unknow Failure. Maybe the file was not a valid object model file
-            NSLog(@"Could not load Object File: %@", self.momFileUrl);
+            DDLog(@"Could not load Object File: %@", self.momFileUrl);
             NSError* error = [self errnoErrorWithReason:[NSString stringWithFormat:@"Failed to load: %@. Make sure it is a valid Object Model file.", self.momFileUrl]];
             [self.delegate onLoadObjectModelFailedWithError:error];
             return;
@@ -115,7 +116,7 @@ NSInteger const CORE_DATA_HISTORY_MAX = 100;
             error = nil;
         }
     } @catch (NSException *exception) {
-        NSLog(@"main: Failed to load persistence file. Caught %@: %@", [exception name], [exception reason]);
+        DDLog(@"main: Failed to load persistence file. Caught %@: %@", [exception name], [exception reason]);
         if (self.delegate != nil) {
             NSError* error = [self errnoErrorWithReason:[NSString stringWithFormat:@"%@: %@", [exception name], [exception reason]]];
             [self.delegate onLoadPersistenceFailedWithError:error];
@@ -191,7 +192,7 @@ NSInteger const CORE_DATA_HISTORY_MAX = 100;
         {
             for (NSPropertyDescription *property in entityDescription)
             {
-                //NSLog(@"Prop Name: [%@]", [property name]);                
+                //DDLog(@"Prop Name: [%@]", [property name]);
                 [columnNames addObject:[property name]];
             }
             return columnNames;
@@ -225,7 +226,7 @@ NSInteger const CORE_DATA_HISTORY_MAX = 100;
 }
 
 - (void) applyPredicate: (NSString*) entityName predicate:(NSPredicate*) predicate {
-    NSLog(@"%s - %@: '%@'", __PRETTY_FUNCTION__, entityName, predicate);
+    DDLog(@"%s - %@: '%@'", __PRETTY_FUNCTION__, entityName, predicate);
     self.entityData = [self fetchObjectsByEntityName:entityName: predicate];
 }
 
@@ -312,7 +313,7 @@ NSInteger const CORE_DATA_HISTORY_MAX = 100;
     }
     
     for (NSAttributeDescription *property in entityDescription) {
-        //NSLog(@"Prop Name: [%@] - [%@]", [property description], [property class]);
+        //DDLog(@"Prop Name: [%@] - [%@]", [property description], [property class]);
         
         /** 
          Possible Attribute Types
@@ -336,7 +337,7 @@ NSInteger const CORE_DATA_HISTORY_MAX = 100;
          **/
         if ([property isKindOfClass:NSAttributeDescription.class] && [property attributeType] == NSBinaryDataAttributeType) {
             // Not sure how to handle NSTransformableAttributeType so exlude from key paths
-            //NSLog(@"Exclude NSTransformableAttributeType: %@", property);
+            //DDLog(@"Exclude NSTransformableAttributeType: %@", property);
             
         } else if ([property isKindOfClass:NSAttributeDescription.class] && [property attributeType] == NSTransformableAttributeType) {
             /* 
@@ -345,18 +346,18 @@ NSInteger const CORE_DATA_HISTORY_MAX = 100;
              */
             
             // Not sure how to handle NSObjectIDAttributeType so exlude from key paths
-            //NSLog(@"Exclude NSObjectIDAttributeType: %@", property);
+            //DDLog(@"Exclude NSObjectIDAttributeType: %@", property);
             
         } else if ([property isKindOfClass:NSAttributeDescription.class] && [property attributeType] == NSObjectIDAttributeType) {
             // Not sure how to handle NSBinaryDataAttributeType so exlude from key paths
-            //NSLog(@"Exclude NSBinaryDataAttributeType: %@", property);
+            //DDLog(@"Exclude NSBinaryDataAttributeType: %@", property);
             
         } else if ([property isKindOfClass:NSAttributeDescription.class]) {
             [keyPaths addObject:[property name]];
         } else {
             // Need to handle NSRelationshipDescription
             
-            NSLog(@"Unhandled NSAttributeDescription (%@)", [property entity]);
+            DDLog(@"Unhandled NSAttributeDescription (%@)", [property entity]);
         }
         
     }
@@ -391,7 +392,7 @@ NSInteger const CORE_DATA_HISTORY_MAX = 100;
 - (void) loadEntityDataAtIndex: (NSUInteger) index {
     NSTimeInterval startTime = [[NSDate date] timeIntervalSince1970];
     self.entityData = [self fetchObjectsByEntityName:[self entityAtIndex:index]];
-    NSLog(@"loadEntityDataAtIndex: %@ms", [MFLUtils duration:startTime]);
+    DDLog(@"loadEntityDataAtIndex: %@ms", [MFLUtils duration:startTime]);
 }
 
 - (NSString*) entityAtIndex:(NSUInteger) index {
@@ -417,7 +418,7 @@ NSInteger const CORE_DATA_HISTORY_MAX = 100;
         return (self.entityData)[row];
     }
     else {
-        NSLog(@"getDataAtRow: bad row:%d, #rows:%d", (int)row, (int)[self entityDataCount]);
+        DDLog(@"getDataAtRow: bad row:%d, #rows:%d", (int)row, (int)[self entityDataCount]);
         return nil;
     }
 }

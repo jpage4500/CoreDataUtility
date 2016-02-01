@@ -19,3 +19,5 @@ DerivedData
 
 # IDEA (IntelliJ/AppCode) settings
 .idea
+
+Pods/

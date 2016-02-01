@@ -38,7 +38,9 @@
 		83AE7D3019FF1AB400DD152B /* SimulatorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AE7D2F19FF1AB400DD152B /* SimulatorItem.m */; };
 		83AE7D3219FF1CE900DD152B /* simulatorIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 83AE7D3119FF1CE900DD152B /* simulatorIcon.png */; };
 		83B158FD158F6AE2002B46C2 /* MFLCoreDataIntrospection.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B158FC158F6AE2002B46C2 /* MFLCoreDataIntrospection.m */; };
+		9780E0FFEA26AA35DDD4450F /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9780E0B0B8CE10DFEDDBCAB8 /* Logger.m */; };
 		9780EDFFBC753AD96BBF64A1 /* MFLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9780E6C8A039EE9C6DDC7B83 /* MFLUtils.m */; };
+		9780EEDDB4A971050FC21F1B /* NSString_Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9780EFD889BC81E9DD87876F /* NSString_Extension.m */; };
 		C1CEFE561463779D00466EB3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1CEFE551463779D00466EB3 /* Cocoa.framework */; };
 		C1CEFE601463779D00466EB3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1CEFE5E1463779D00466EB3 /* InfoPlist.strings */; };
 		C1CEFE621463779D00466EB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CEFE611463779D00466EB3 /* main.m */; };
@@ -47,6 +49,7 @@
 		C1CEFE6C1463779D00466EB3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1CEFE6A1463779D00466EB3 /* MainMenu.xib */; };
 		C1CEFE6F1463779D00466EB3 /* CoreDataUtil.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C1CEFE6D1463779D00466EB3 /* CoreDataUtil.xcdatamodeld */; };
 		DB2F1D8D1A13D0470021E081 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2F1D8C1A13D0470021E081 /* QuartzCore.framework */; };
+		E7B0CA386C8A10DB4AE8AF36 /* libPods-CoreDataUtil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB094727C80768422A42C6DB /* libPods-CoreDataUtil.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,9 +65,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A34B0EA994785348DEF7B6E /* Pods-CoreDataUtil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreDataUtil.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoreDataUtil/Pods-CoreDataUtil.release.xcconfig"; sourceTree = "<group>"; };
 		1D52574316EB66F100A91244 /* FetchRequestInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchRequestInfoController.h; sourceTree = "<group>"; };
 		1D52574416EB66F100A91244 /* FetchRequestInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchRequestInfoController.m; sourceTree = "<group>"; };
 		1D52574516EB66F100A91244 /* FetchRequestInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FetchRequestInfoController.xib; sourceTree = "<group>"; };
+		1FC3EAEDC50059E09898752C /* Pods-CoreDataUtil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreDataUtil.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoreDataUtil/Pods-CoreDataUtil.debug.xcconfig"; sourceTree = "<group>"; };
 		5B2AEF181576B67600DFD0D6 /* GetInfoSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetInfoSheetController.h; sourceTree = "<group>"; };
 		5B2AEF191576B67600DFD0D6 /* GetInfoSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetInfoSheetController.m; sourceTree = "<group>"; };
 		5B2AEF1A1576B67600DFD0D6 /* GetInfoSheetController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GetInfoSheetController.xib; sourceTree = "<group>"; };
@@ -113,8 +118,12 @@
 		83AE7D3119FF1CE900DD152B /* simulatorIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = simulatorIcon.png; sourceTree = "<group>"; };
 		83B158FB158F6AE2002B46C2 /* MFLCoreDataIntrospection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLCoreDataIntrospection.h; sourceTree = "<group>"; };
 		83B158FC158F6AE2002B46C2 /* MFLCoreDataIntrospection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFLCoreDataIntrospection.m; sourceTree = "<group>"; };
+		9780E0B0B8CE10DFEDDBCAB8 /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
 		9780E6C8A039EE9C6DDC7B83 /* MFLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFLUtils.m; sourceTree = "<group>"; };
 		9780E887DE002F72EABD10EF /* MFLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLUtils.h; sourceTree = "<group>"; };
+		9780E9292B7F64A8A06A7A3A /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
+		9780EB20A352854B688BEA44 /* NSString_Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_Extension.h; sourceTree = "<group>"; };
+		9780EFD889BC81E9DD87876F /* NSString_Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_Extension.m; sourceTree = "<group>"; };
 		C1CEFE511463779C00466EB3 /* CoreDataPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1CEFE551463779D00466EB3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C1CEFE581463779D00466EB3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -147,6 +156,7 @@
 		C1CEFEA11463779D00466EB3 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		C1CEFEA21463779D00466EB3 /* CoreDataUtilImporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreDataUtilImporter-Prefix.pch"; sourceTree = "<group>"; };
 		DB2F1D8C1A13D0470021E081 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EB094727C80768422A42C6DB /* libPods-CoreDataUtil.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CoreDataUtil.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +166,7 @@
 			files = (
 				DB2F1D8D1A13D0470021E081 /* QuartzCore.framework in Frameworks */,
 				C1CEFE561463779D00466EB3 /* Cocoa.framework in Frameworks */,
+				E7B0CA386C8A10DB4AE8AF36 /* libPods-CoreDataUtil.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +183,8 @@
 				832C969A159BDBB000AC8FA8 /* MFLCoreDataEditorProjectLoader.m */,
 				9780E6C8A039EE9C6DDC7B83 /* MFLUtils.m */,
 				9780E887DE002F72EABD10EF /* MFLUtils.h */,
+				9780E9292B7F64A8A06A7A3A /* Logger.h */,
+				9780E0B0B8CE10DFEDDBCAB8 /* Logger.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -215,6 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				8373BBB01A3740B3009E0297 /* timeago */,
+				9780EFD889BC81E9DD87876F /* NSString_Extension.m */,
+				9780EB20A352854B688BEA44 /* NSString_Extension.h */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -284,6 +299,7 @@
 				C1CEFE941463779D00466EB3 /* CoreDataUtilImporter */,
 				C1CEFE541463779D00466EB3 /* Frameworks */,
 				C1CEFE521463779C00466EB3 /* Products */,
+				F96B74D04821D041590C5278 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -306,6 +322,7 @@
 				C1CEFE901463779D00466EB3 /* CoreData.framework */,
 				C1CEFE921463779D00466EB3 /* Foundation.framework */,
 				C1CEFE571463779D00466EB3 /* Other Frameworks */,
+				EB094727C80768422A42C6DB /* libPods-CoreDataUtil.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -397,6 +414,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F96B74D04821D041590C5278 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1FC3EAEDC50059E09898752C /* Pods-CoreDataUtil.debug.xcconfig */,
+				0A34B0EA994785348DEF7B6E /* Pods-CoreDataUtil.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -404,12 +430,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C1CEFEA81463779D00466EB3 /* Build configuration list for PBXNativeTarget "CoreDataUtil" */;
 			buildPhases = (
+				53E4E66B533F61BB1925CF82 /* Check Pods Manifest.lock */,
 				837C067C1A0E657900F4D5D4 /* Set Build Version */,
 				C1CEFE4D1463779C00466EB3 /* Sources */,
 				C1CEFE4E1463779C00466EB3 /* Frameworks */,
 				C1CEFE4F1463779C00466EB3 /* Resources */,
 				837C067D1A0E659500F4D5D4 /* Reset Build Version */,
 				DB4F5F551A1257C700ED506D /* CopyFiles */,
+				0569C555E6063B6B2112E6FE /* Embed Pods Frameworks */,
+				272F2A70D4E1FC57863E49ED /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -483,6 +512,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0569C555E6063B6B2112E6FE /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CoreDataUtil/Pods-CoreDataUtil-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		272F2A70D4E1FC57863E49ED /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CoreDataUtil/Pods-CoreDataUtil-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		53E4E66B533F61BB1925CF82 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		837C067C1A0E657900F4D5D4 /* Set Build Version */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -541,6 +615,8 @@
 				833FF6FD187860F1003ADCEA /* MFLConstants.m in Sources */,
 				1D52574616EB66F200A91244 /* FetchRequestInfoController.m in Sources */,
 				9780EDFFBC753AD96BBF64A1 /* MFLUtils.m in Sources */,
+				9780E0FFEA26AA35DDD4450F /* Logger.m in Sources */,
+				9780EEDDB4A971050FC21F1B /* NSString_Extension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,6 +741,7 @@
 		};
 		C1CEFEA91463779D00466EB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FC3EAEDC50059E09898752C /* Pods-CoreDataUtil.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CoreDataUtil/CoreDataPro.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -681,6 +758,7 @@
 		};
 		C1CEFEAA1463779D00466EB3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A34B0EA994785348DEF7B6E /* Pods-CoreDataUtil.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CoreDataUtil/CoreDataPro.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
