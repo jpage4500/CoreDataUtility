@@ -181,7 +181,7 @@ To view EverNotes data do the following:
 5. Select "Evernote.app LocalNoteStore.mom" from the drop down list.
 6. Now find Evernote's persistence file
 7. Select "Application Support" button and browse up one directory level
-8. Browse to "~/Library/Containers/com.evernote.Evernote/Data/Library/Application%20Support/Evernote/accounts/Evernote/YOUR_USERNAME/Evernote.sql"
+8. Browse (or use CMD+SHIFT+G) to go to "~/Library/Containers/com.evernote.Evernote/Data/Library/Application Support/com.evernote.Evernote/accounts/www.evernote.com/<user_id>/LocalNoteStore.sqlite"
 9. Make sure "SQL" persistence Format is selected
 10. Select Open
 11. Browse your Evernote data

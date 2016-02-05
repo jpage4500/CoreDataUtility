@@ -21,6 +21,8 @@
 @property (strong) NSMutableArray *simulatorUrlList;
 @property (weak) IBOutlet NSOutlineView *simulatorSourceList;
 
+@property (strong) NSMutableArray *simulatorNodeList;
+
 - (void)initializeTab;
 - (void)showOrHideOpenButton;
 - (NSURL *)applicationSupportDirectory;

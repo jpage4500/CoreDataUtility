@@ -1,0 +1,32 @@
+CoreDataPro NOTES:
+-----------------------------------------------
+
+[File Paths]
+
+Sandboxed App Storage:
+~/Library/Containers/
+
+App Storage (non-sandboxed apps):
+~/Library/Application Support/
+
+Simulator:
+~/Library/Developer/CoreSimulator/Devices
+
+    device_set.plist: contains list of all OS & Simulator types and where they're stored
+    ~/Library/Developer/CoreSimulator/Devices/device_set.plist
+
+-----------------------------------------------
+
+[Logic]
+
+Search for .mom, .sqlite files in each location:
+
+find /Applications/ -type f -name "*.mom" ! -path "/Applications//Xcode.app/*"
+
+find ~/Library/Developer/CoreSimulator/Devices -type f -name "*.mom"
+
+find ~/Library/Application\ Support/ -type f -name "*.mom"
+
+find ~/Library/Containers/ -type f -name "*.mom"
+
+find ~/Library/Application\ Support/ -name "*.sqlite"

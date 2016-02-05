@@ -117,11 +117,19 @@ static SimulatorItem *rootItem = nil;
 //    return _children;
 //}
 
-- (NSMutableArray*) loadSimulators {
+- (NSMutableArray *) loadSimulators {
+    // iterate over all OS & device combinations listed here:
+    // ~/Library/Developer/CoreSimulator/Devices/device_set.plist
+
     NSFileManager *fileManager = [NSFileManager defaultManager];
+//    NSDictionary* deviceSetDict = [NSDictionary dictionaryWithContentsOfFile:@"~/Library/Developer/CoreSimulator/Devices/device_set.plist"];
+//    NSDictionary* osDict = deviceSetDict[@"DefaultDevices"];
+//    [osDict enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSDictionary *obj, BOOL *stop) {
+//
+//    }];
+
     NSString *fullPath = [self fullPath];
     BOOL isDir, valid = [fileManager fileExistsAtPath:fullPath isDirectory:&isDir];
-    
     NSMutableArray* simulators = [NSMutableArray array];
     if (valid && isDir) {
         NSArray *array = [fileManager contentsOfDirectoryAtPath:fullPath error:NULL];
@@ -247,8 +255,6 @@ static SimulatorItem *rootItem = nil;
         NSString* path = [self.parent fullPath];
         // Example:
         //~/Library/Developer/CoreSimulator/Devices/7B653CE4-A57A-4D5A-B4BA-4DC212E9285D/data/Containers/Bundle/Application/F664257E-95A0-4A98-BB70-52F5927ADB41/Beepngo.app
-        
-
         return [NSString stringWithFormat:@"%@/data/Containers/Bundle/Application/%@", path, self.relativePath];
     } else if (self.parent) {
         return [[self.parent fullPath] stringByAppendingPathComponent:self.relativePath];

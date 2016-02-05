@@ -131,6 +131,7 @@ static const int MAX_TEXT_LENGTH = 255;
     
     [self.entityContentTable setDataSource:self];
     [self.entityContentTable setDelegate:self];
+    self.entityContentTable
     
     [self.historySegmentedControl setEnabled:NO forSegment:0];
     [self.historySegmentedControl setEnabled:NO forSegment:1];
@@ -373,6 +374,41 @@ static const int MAX_TEXT_LENGTH = 255;
     return 0;
 }
 
+// cell-based table
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    if (tableView == [self dataSourceList]) {
+        NSString *value = [self.coreDataIntrospection entityAtIndex:(NSUInteger)row];
+        int valueCount = (int)[self.coreDataIntrospection entityDataCountAtIndex:row];
+        return [NSString stringWithFormat:@"%@ (%d)", value, valueCount];
+    }
+
+    id valueObj = [self getValueObjFromDataRows:tableView :row :tableColumn];
+
+    // TODO - add decorator for link-type cells
+//    NSMutableAttributedString *highlight = [[NSMutableAttributedString alloc] initWithString:data];
+//    NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];
+//    [pStyle setLineBreakMode:NSLineBreakByTruncatingTail];
+//    [pStyle setTighteningFactorForTruncation:0];
+//        [pStyle setAlignment:NSTextAlignmentCenter];
+//    [highlight addAttribute:NSParagraphStyleAttributeName value:pStyle range:NSMakeRange(0, [highlight length])];
+//    return highlight;
+
+    return valueObj;
+}
+
+#pragma mark NSTableViewDelegate
+
+// cell-based table
+- (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    NSTextFieldCell *cell = [tableColumn dataCell];
+    // TODO - change font based on cell type
+    return cell;
+}
+
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+    return 20;
+}
+
 - (id)getValueObjFromDataRows:(NSTableView *)tableView :(NSInteger)row :(NSTableColumn *)tableColumn
 {
     NSInteger normalizedRow = [self sortOrderedRow:tableView row:row];
@@ -391,140 +427,140 @@ static const int MAX_TEXT_LENGTH = 255;
     return normalizedRow;
 }
 
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-    return 20;
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    return nil;
 }
-
-- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
-{
-    if (tableView == [self dataSourceList])
-    {
-        MFLEntityTableCellView* entityCell = [tableView makeViewWithIdentifier:MFL_ENTITY_CELL owner:self];
-        NSString* lblTxt = [self.coreDataIntrospection entityAtIndex:row];
-
-        [[entityCell label] setStringValue:lblTxt];
-        //[entityCell setDataCount:[NSString stringWithFormat:@"%ld", [self.coreDataIntrospection entityDataCountAtIndex:row]]];
-        [[entityCell countButton] setTitle: [NSString stringWithFormat:@"%ld", [self.coreDataIntrospection entityDataCountAtIndex:row]]];
-        //[[entityCell countButton] sizeToFit];
-        [[entityCell countButton] setEnabled:NO];
-        return entityCell;
-    }
-
-    // -- entity table --
-
-    // check cache for view data
-    NSMutableDictionary *columnMap = self.cachedRows[@(row)];
-    if (columnMap != nil) {
-        ViewData *viewData = columnMap[tableColumn.identifier];
-        if (viewData != nil) {
-            return [self createCell:viewData.text withType:viewData.viewType];
-        }
-    }
-
-    NSString *viewText = nil;
-    EViewType viewType = ViewTypeString;
-
-    id valueObj = [self getValueObjFromDataRows:tableView :row :tableColumn];
-    if (valueObj == nil) {
-        // do nothing..
-    }
-    else if ([valueObj isKindOfClass:[NSString class]]) {
-        viewType = ViewTypeString;
-        viewText = valueObj;
-        if (viewText.length > MAX_TEXT_LENGTH) {
-            viewText = [viewText substringToIndex:MAX_TEXT_LENGTH];
-        }
-
-        if ([viewText hasPrefix:@"http"]) {
-            viewType = ViewTypeLink;
-        }
-    }
-    else if ([valueObj isKindOfClass:[NSNumber class]]) {
-        viewType = ViewTypeNumber;
-        NSNumber *number = valueObj;
-        // get 'type' of NSNumber to determine if this is a Boolean data type
-        if (strcmp(number.objCType, @encode(BOOL)) == 0) {
-            viewText = [NSString stringWithFormat:@"%@", number.boolValue ? @"YES" : @"NO"];
-        }
-        else {
-            viewText = [NSString stringWithFormat:@"%@", valueObj];
-        }
-    }
-    else if ([valueObj isKindOfClass:[NSDate class]]) {
-        viewType = ViewTypeDate;
-        [self setupDateFormatter];
-        viewText = [self.dateFormatter stringFromDate:valueObj];
-    }
-    else if ([valueObj isKindOfClass:[NSURL class]]) {
-        viewType = ViewTypeLink;
-        NSURL* url = (NSURL*) valueObj;
-        viewText = [NSString stringWithFormat:@"%@", [url absoluteString]];
-    }
-    else if ([valueObj isKindOfClass:[NSData class]]) {
-        viewType = ViewTypeNumber;
-        viewText = [NSString stringWithFormat:@"%ld", [valueObj length]];
-    }
-    else if ([valueObj isKindOfClass:[NSManagedObject class]]) {
-        viewText = [NSString stringWithFormat:@"%@", [[valueObj entity] name]];
-    }
-    else if ([valueObj isKindOfClass:[NSSet class]]) {
-        if ([valueObj count] > 0) {
-            id obj = [valueObj anyObject];
-            if ([obj isKindOfClass:[NSManagedObject class]]) {
-                viewType = ViewTypeLink;
-                NSManagedObject* object = obj;
-                viewText = [NSString stringWithFormat:@"%@[%ld]", [[object entity] name], [valueObj count]];
-            } else {
-                viewText = [NSString stringWithFormat:@"%@", valueObj];
-            }
-        }
-    }
-    else if ([valueObj isKindOfClass:[NSArray class]]) {
-        if ([valueObj count] > 0) {
-            id obj = [valueObj firstItem];
-            if ([obj isKindOfClass:[NSManagedObject class]]) {
-                viewType = ViewTypeLink;
-                NSManagedObject* object = obj;
-                viewText = [NSString stringWithFormat:@"%@[%ld]", [[object entity] name], [valueObj count]];
-            } else {
-                viewText = [NSString stringWithFormat:@"%@", valueObj];
-            }
-        }
-    }
-    else if ([valueObj isKindOfClass:[NSOrderedSet class]]) {
-        if ([valueObj count] > 0) {
-            id obj = [valueObj firstObject];
-            if ([obj isKindOfClass:[NSManagedObject class]]) {
-                viewType = ViewTypeLink;
-                NSManagedObject* object = obj;
-                viewText = [NSString stringWithFormat:@"%@[%ld]", [[object entity] name], [valueObj count]];
-            } else {
-                viewText = [NSString stringWithFormat:@"%@", valueObj];
-            }
-        }
-    }
-    else if ([valueObj isKindOfClass:[NSDictionary class]]) {
-        viewType = ViewTypeTransformable;
-        viewText = [NSString stringWithFormat:@"%@", @"NSDictionary Data"];
-    }
-    else {
-        DDLog(@"Unknown content: %@", valueObj);
-        viewText = [NSString stringWithFormat:@"??? %@ ???", [valueObj class]];
-    }
-
-    // cache text and type
-    if (columnMap == nil) {
-        columnMap = [NSMutableDictionary new];
-        self.cachedRows[@(row)] = columnMap;
-    }
-    ViewData *viewData = [ViewData new];
-    viewData.text = viewText;
-    viewData.viewType = viewType;
-    columnMap[tableColumn.identifier] = viewData;
-
-    // create cell from text and type
-    return [self createCell:viewText withType:viewType];
-}
+//{
+//    if (tableView == [self dataSourceList])
+//    {
+//        MFLEntityTableCellView* entityCell = [tableView makeViewWithIdentifier:MFL_ENTITY_CELL owner:self];
+//        NSString* lblTxt = [self.coreDataIntrospection entityAtIndex:row];
+//
+//        [[entityCell label] setStringValue:lblTxt];
+//        //[entityCell setDataCount:[NSString stringWithFormat:@"%ld", [self.coreDataIntrospection entityDataCountAtIndex:row]]];
+//        [[entityCell countButton] setTitle: [NSString stringWithFormat:@"%ld", [self.coreDataIntrospection entityDataCountAtIndex:row]]];
+//        //[[entityCell countButton] sizeToFit];
+//        [[entityCell countButton] setEnabled:NO];
+//        return entityCell;
+//    }
+//
+//    return nil;
+//
+//    // -- entity table --
+//
+//    // check cache for view data
+//    NSMutableDictionary *columnMap = self.cachedRows[@(row)];
+//    if (columnMap != nil) {
+//        ViewData *viewData = columnMap[tableColumn.identifier];
+//        if (viewData != nil) {
+//            return [self createCell:viewData.text withType:viewData.viewType];
+//        }
+//    }
+//
+//    NSString *viewText = nil;
+//    EViewType viewType = ViewTypeString;
+//
+//    id valueObj = [self getValueObjFromDataRows:tableView :row :tableColumn];
+//    if (valueObj == nil) {
+//        // do nothing..
+//    }
+//    else if ([valueObj isKindOfClass:[NSString class]]) {
+//        viewType = ViewTypeString;
+//        viewText = valueObj;
+//        if (viewText.length > MAX_TEXT_LENGTH) {
+//            viewText = [viewText substringToIndex:MAX_TEXT_LENGTH];
+//        }
+//
+//        if ([viewText hasPrefix:@"http"]) {
+//            viewType = ViewTypeLink;
+//        }
+//    }
+//    else if ([valueObj isKindOfClass:[NSNumber class]]) {
+//        viewType = ViewTypeNumber;
+//        NSNumber *number = valueObj;
+//        // get 'type' of NSNumber to determine if this is a Boolean data type
+//        if (strcmp(number.objCType, @encode(BOOL)) == 0) {
+//            viewText = [NSString stringWithFormat:@"%@", number.boolValue ? @"YES" : @"NO"];
+//        }
+//        else {
+//            viewText = [NSString stringWithFormat:@"%@", valueObj];
+//        }
+//    }
+//    else if ([valueObj isKindOfClass:[NSDate class]]) {
+//        viewType = ViewTypeDate;
+//        [self setupDateFormatter];
+//        viewText = [self.dateFormatter stringFromDate:valueObj];
+//    }
+//    else if ([valueObj isKindOfClass:[NSURL class]]) {
+//        viewType = ViewTypeLink;
+//        NSURL* url = (NSURL*) valueObj;
+//        viewText = [NSString stringWithFormat:@"%@", [url absoluteString]];
+//    }
+//    else if ([valueObj isKindOfClass:[NSData class]]) {
+//        viewType = ViewTypeNumber;
+//        viewText = [NSString stringWithFormat:@"%ld", [valueObj length]];
+//    }
+//    else if ([valueObj isKindOfClass:[NSManagedObject class]]) {
+//        viewText = [NSString stringWithFormat:@"%@", [[valueObj entity] name]];
+//    }
+//    else if ([valueObj isKindOfClass:[NSSet class]]) {
+//        if ([valueObj count] > 0) {
+//            id obj = [valueObj anyObject];
+//            if ([obj isKindOfClass:[NSManagedObject class]]) {
+//                viewType = ViewTypeLink;
+//                NSManagedObject* object = obj;
+//                viewText = [NSString stringWithFormat:@"%@[%ld]", [[object entity] name], [valueObj count]];
+//            } else {
+//                viewText = [NSString stringWithFormat:@"%@", valueObj];
+//            }
+//        }
+//    }
+//    else if ([valueObj isKindOfClass:[NSArray class]]) {
+//        if ([valueObj count] > 0) {
+//            id obj = [valueObj firstItem];
+//            if ([obj isKindOfClass:[NSManagedObject class]]) {
+//                viewType = ViewTypeLink;
+//                NSManagedObject* object = obj;
+//                viewText = [NSString stringWithFormat:@"%@[%ld]", [[object entity] name], [valueObj count]];
+//            } else {
+//                viewText = [NSString stringWithFormat:@"%@", valueObj];
+//            }
+//        }
+//    }
+//    else if ([valueObj isKindOfClass:[NSOrderedSet class]]) {
+//        if ([valueObj count] > 0) {
+//            id obj = [valueObj firstObject];
+//            if ([obj isKindOfClass:[NSManagedObject class]]) {
+//                viewType = ViewTypeLink;
+//                NSManagedObject* object = obj;
+//                viewText = [NSString stringWithFormat:@"%@[%ld]", [[object entity] name], [valueObj count]];
+//            } else {
+//                viewText = [NSString stringWithFormat:@"%@", valueObj];
+//            }
+//        }
+//    }
+//    else if ([valueObj isKindOfClass:[NSDictionary class]]) {
+//        viewType = ViewTypeTransformable;
+//        viewText = [NSString stringWithFormat:@"%@", @"NSDictionary Data"];
+//    }
+//    else {
+//        DDLog(@"Unknown content: %@", valueObj);
+//        viewText = [NSString stringWithFormat:@"??? %@ ???", [valueObj class]];
+//    }
+//
+//    // cache text and type
+//    if (columnMap == nil) {
+//        columnMap = [NSMutableDictionary new];
+//        self.cachedRows[@(row)] = columnMap;
+//    }
+//    ViewData *viewData = [ViewData new];
+//    viewData.text = viewText;
+//    viewData.viewType = viewType;
+//    columnMap[tableColumn.identifier] = viewData;
+//
+//    // create cell from text and type
+//    return [self createCell:viewText withType:viewType];
+//}
 
 - (NSTableCellView *)createCell:(NSString *)text withType:(EViewType)type {
     // using different identifiers for view types to minimize changes to a cells layout for reuse
